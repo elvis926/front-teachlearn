@@ -1,29 +1,27 @@
 import React from 'react'
+import {api} from "../lib/api";
 
-const comments = ({comments}) => {
+const subjects = ({subjects}) => {
 
     return (
       <div>
-          {comments.map((comments)=><li>{comments.text}</li>)}
+          {subjects.map((subjects)=><li>{subjects.name}</li>)}
       </div>
     );
 };
 
-export default comments;
+export default subjects;
 
 export async function getStaticProps (){
 
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments`
-    );
+    const res = await api.get(`/subjects` );
     const data = await res.json();
     console.log('data',data);
-
-    const comments = data.data;
+    const subjects = data.data;
 
     return {
         props:{
-            comments,
+            subjects,
         },
     };
 }
